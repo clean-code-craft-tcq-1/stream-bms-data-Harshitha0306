@@ -7,7 +7,7 @@
 #include "string.h"
 
 
-EST_CASE("Test case to test the value within the Range")
+TEST_CASE("Test case to test the value within the Range")
 {
   REQUIRE(isInRange(1,0,70)== 1);
 }
