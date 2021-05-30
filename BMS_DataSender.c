@@ -23,8 +23,8 @@ SendStatus BMS_SendData()
   float ChargeRate;
   SendStatus Validity_status;
 
-Temperature = Get_BMSTemperatue(Temperature_s);
-ChargeRate = Get_BMSChargeRate(ChargeRate_s);
+Temperature = Get_BMSTemperatue(Temperature_st);
+ChargeRate = Get_BMSChargeRate(ChargeRate_st);
 
  Validity_status = SendData(Temperature, ChargeRate);
   
