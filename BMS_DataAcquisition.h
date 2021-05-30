@@ -19,8 +19,8 @@
   float  Error_value;
 };
 
- struct Battery_Parameter_s Temperature_s = {-40,80,255};
- struct Battery_Parameter_s  ChargeRate_s = {0,30,255};
+ struct Battery_Parameter_s Temperature_s;
+ struct Battery_Parameter_s  ChargeRate_s;
 
 
 
