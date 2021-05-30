@@ -21,17 +21,17 @@ TEST_CASE("Test case to test the value invaild Range")
 
 TEST_CASE("Test for valid temperature values")
 {
-    struct Battery_Parameter_s Temperature_s = {-40,80,255};
+    struct Battery_Parameter_s Temperature_TC = {-40,80,255};
     
-   REQUIRE(Get_BMSTemperatue(Temperature_s)!= 255);
+   REQUIRE(Get_BMSTemperatue(Temperature_TC)!= 255);
 }
 
 
 TEST_CASE("Test for valid SOC values")
 {
-  struct Battery_Parameter_s  ChargeRate_s = {0,30,255};
+  struct Battery_Parameter_s  ChargeRate_TC = {0,30,255};
     
-  REQUIRE(Get_BMSChargeRate(ChargeRate_s)!= 255);
+  REQUIRE(Get_BMSChargeRate(ChargeRate_TC)!= 255);
 }
 
 
