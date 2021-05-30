@@ -7,7 +7,7 @@
 #include "string.h"
 
 
-TEST_CASE("Test case to test the value within the Range")
+EST_CASE("Test case to test the value within the Range")
 {
   REQUIRE(isInRange(1,0,70)== 1);
 }
@@ -21,13 +21,17 @@ TEST_CASE("Test case to test the value invaild Range")
 
 TEST_CASE("Test for valid temperature values")
 {
-  REQUIRE(Get_BMSTemperatue()!= 255);
+    struct Battery_Parameter_s Temperature_s = {-40,80,255};
+    
+   REQUIRE(Get_BMSTemperatue(Temperature_s)!= 255);
 }
 
 
 TEST_CASE("Test for valid SOC values")
 {
-  REQUIRE(Get_BMSChargeRate()!= 255);
+  struct Battery_Parameter_s  ChargeRate_s = {0,30,255};
+    
+  REQUIRE(Get_BMSChargeRate(ChargeRate_s)!= 255);
 }
 
 
@@ -44,7 +48,7 @@ TEST_CASE("Test for valid Random values")
 
 TEST_CASE("Test for invalid Random values")
 {
-  float random_value = 0;
+  
   float min = 50;
   float max = 10;
   REQUIRE(RandomNumGenerator(min,max) == 0);
@@ -53,11 +57,7 @@ TEST_CASE("Test for invalid Random values")
 
 TEST_CASE("Test for Send BMS data")
 {
-  int MAXPRINT = 20;
   REQUIRE(BMS_SendData() == SENTSUCCESSFULLY);
 }
 
-TEST_CASE("Test for Send BMS data")
-{
-  REQUIRE(BMS_SendData() == SENTSUCCESSFULLY);
-}
+
