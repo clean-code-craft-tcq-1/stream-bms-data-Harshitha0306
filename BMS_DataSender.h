@@ -10,6 +10,8 @@
 #include <stdlib.h>
 
 /* ******************************* Defines ******************************* */
+
+#define INVALID 32767
  struct Battery_Parameter_s
 {
   float  Min_value;
