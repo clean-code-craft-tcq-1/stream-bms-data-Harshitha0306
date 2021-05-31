@@ -29,6 +29,6 @@ float * Get_BMSTemperatue(struct Battery_Parameter_s Temperature_s,int MAXPARAMN
 float * Get_BMSChargeRate(struct Battery_Parameter_s ChargeRate_s,int MAXPARAMNUM);
 float RandomNumGenerator(float min,float max);
 SendStatus Output_ToConsole(float* Temperature, float* ChargeRate,int MAXPARAMNUM);
-SendStatus BMS_SendData(struct Battery_Parameter_s Temperature_s,struct Battery_Parameter_s ChargeRate_s,int MAXCOUNT);
+SendStatus BMS_SendData(struct Battery_Parameter_s Temperature_s,struct Battery_Parameter_s ChargeRate_s,int MAXPARAMNUM);
 
 #endif /* BMS_DataSender_h */
