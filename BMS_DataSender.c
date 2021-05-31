@@ -58,7 +58,7 @@ float RandomNumGenerator(float min, float max)
       else
       {
         printf("Invalid min and max input\n");
-        return 0;
+        return INVALID;
           
       }
     }
