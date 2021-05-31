@@ -36,7 +36,7 @@ TEST_CASE("Test for invalid Random values")
 {
   float min = 50;
   float max = 10;
-  REQUIRE(RandomNumGenerator(min,max) == 0);
+  REQUIRE(RandomNumGenerator(min,max) == 32767);
 }
 
 
@@ -53,7 +53,7 @@ TEST_CASE("Test to print paramters on console")
 {
     struct Battery_Parameter_s Temperature_s = {-40,80};
     struct Battery_Parameter_s ChargeRate_s  = {10,30};
-    int MAXPARAMNUM =10;
+    int MAXPARAMNUM =30;
     
 REQUIRE(BMS_SendData(Temperature_s,ChargeRate_s,MAXPARAMNUM) == SENTSUCCESSFULLY);
 }
