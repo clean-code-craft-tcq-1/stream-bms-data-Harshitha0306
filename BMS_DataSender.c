@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "BMS_DataSender.h"
-
+# define PARAM_SIZE 100
 
 
 /* **************************************************************************************************
@@ -19,7 +19,7 @@
 
 float * Get_BMSTemperatue(struct Battery_Parameter_s Temperature_s,int MAXPARAMNUM)
 {
-    static float Temperature_arr[20];
+    static float Temperature_arr[PARAM_SIZE];
     for(int i=0;i<= MAXPARAMNUM;i++)
     {
        Temperature_arr[i] = RandomNumGenerator(Temperature_s.Min_value,Temperature_s.Max_value);
@@ -35,7 +35,7 @@ float * Get_BMSTemperatue(struct Battery_Parameter_s Temperature_s,int MAXPARAMN
 
 float * Get_BMSChargeRate(struct Battery_Parameter_s ChargeRate_s,int MAXPARAMNUM)
 {
-    static float ChargeRate_arr[20];
+    static float ChargeRate_arr[PARAM_SIZE];
     for(int i=0;i <= MAXPARAMNUM;i++)
     {
         ChargeRate_arr[i] = RandomNumGenerator(ChargeRate_s.Min_value,ChargeRate_s.Max_value);
