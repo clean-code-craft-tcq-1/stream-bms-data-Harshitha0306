@@ -22,7 +22,7 @@ float * Get_BMSTemperatue(struct Battery_Parameter_s Temperature_s,int MAXPARAMN
     static float Temperature_arr[PARAM_SIZE];
     for(int i=0;i<= MAXPARAMNUM;i++)
     {
-       Temperature_arr[i] = RandomNumGenerator(Temperature_s.Min_value,Temperature_s.Max_value);
+      Temperature_arr[i] = RandomNumGenerator(Temperature_s.Min_value,Temperature_s.Max_value);
     }
     return Temperature_arr;
 }
@@ -38,7 +38,7 @@ float * Get_BMSChargeRate(struct Battery_Parameter_s ChargeRate_s,int MAXPARAMNU
     static float ChargeRate_arr[PARAM_SIZE];
     for(int i=0;i <= MAXPARAMNUM;i++)
     {
-        ChargeRate_arr[i] = RandomNumGenerator(ChargeRate_s.Min_value,ChargeRate_s.Max_value);
+      ChargeRate_arr[i] = RandomNumGenerator(ChargeRate_s.Min_value,ChargeRate_s.Max_value);
     }
     return ChargeRate_arr;
 }
@@ -55,11 +55,10 @@ float RandomNumGenerator(float min, float max)
       {
         return (max - min) * ((float)rand() / RAND_MAX) + min;
       }
-      else
+     else
       {
         printf("Invalid min and max input\n");
         return INVALID;
-          
       }
     }
 
@@ -84,11 +83,11 @@ SendStatus BMS_SendData(struct Battery_Parameter_s Temperature_s,struct Battery_
 * Returns       : Validity status if the inputs are printed on console
 * ***************************************************************************************************** */
 
-SendStatus Output_ToConsole(float * Temperature, float * ChargeRate,int MAXPARAMNUM) {
-
+SendStatus Output_ToConsole(float * Temperature, float * ChargeRate,int MAXPARAMNUM) 
+{
     for(int i=0;i <= MAXPARAMNUM;i++)
        {
-          printf("Temperature:%0.3f,ChargeRate:%0.3f\n", Temperature[i],ChargeRate[i]);
+         printf("Temperature:%0.3f,ChargeRate:%0.3f\n", Temperature[i],ChargeRate[i]);
        }
      return SENTSUCCESSFULLY;
 }
