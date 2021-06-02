@@ -85,8 +85,8 @@ SendStatus BMS_SendData(struct Battery_Parameter_s Temperature_s,struct Battery_
 
 SendStatus Output_ToConsole(float * Temperature, float * ChargeRate,int MAXPARAMNUM) 
 {
-    etvbuf(stdout, NULL, _IONBF, 0);
-	setvbuf(stderr, NULL, _IONBF, 0);
+    setvbuf(stdout, NULL, _IONBF, 0);
+    setvbuf(stderr, NULL, _IONBF, 0);
     for(int i=0;i <= MAXPARAMNUM;i++)
        {
          printf("Temperature:%0.3f,ChargeRate:%0.3f\n", Temperature[i],ChargeRate[i]);
