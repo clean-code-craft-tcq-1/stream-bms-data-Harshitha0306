@@ -74,7 +74,7 @@ SendStatus BMS_SendData(struct Battery_Parameter_s Temperature_s,struct Battery_
    float * Temperature = Get_BMSTemperatue(Temperature_s,MAXPARAMNUM);
    float * ChargeRate = Get_BMSChargeRate(ChargeRate_s,MAXPARAMNUM);
    Validity_status = Output_ToConsole(Temperature,ChargeRate,MAXPARAMNUM);
-   return Validity_status;;
+   return Validity_status;
 }
 
 /* **************************************************************************************************
