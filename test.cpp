@@ -21,7 +21,7 @@ TEST_CASE("Test for valid ChargeRate values")
 }
 
 
-TEST_CASE("Test for valid Random values")
+TEST_CASE("Test for random number valid limits")
 {
   float random_value = 0;
   float min = 10;
@@ -32,7 +32,7 @@ TEST_CASE("Test for valid Random values")
 }
 
 
-TEST_CASE("Test for invalid Random values")
+TEST_CASE("Test for Random number invalid limits")
 {
   float min = 50;
   float max = 10;
@@ -40,7 +40,7 @@ TEST_CASE("Test for invalid Random values")
 }
 
 
-TEST_CASE("Test for Successfull Send Operation of BMS paramaters")
+TEST_CASE("Test for Successful Send Operation of BMS paramaters")
 {
     struct Battery_Parameter_s Temperature_s = {-40,80};
     struct Battery_Parameter_s ChargeRate_s  = {10,30};
