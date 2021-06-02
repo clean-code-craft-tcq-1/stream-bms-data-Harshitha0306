@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "BMS_DataSender.h"
-# define PARAM_SIZE 100
+
 
 
 /* **************************************************************************************************
@@ -71,7 +71,7 @@ float RandomNumGenerator(float min, float max)
 
 SendStatus BMS_SendData(struct Battery_Parameter_s Temperature_s,struct Battery_Parameter_s ChargeRate_s,int MAXPARAMNUM)
 {
-   SendStatus Validity_status;
+   SendStatus Validity_status = SENDING_FAILED,;
    float * Temperature = Get_BMSTemperatue(Temperature_s,MAXPARAMNUM);
    float * ChargeRate = Get_BMSChargeRate(ChargeRate_s,MAXPARAMNUM);
    Validity_status = Output_ToConsole(Temperature,ChargeRate,MAXPARAMNUM);
