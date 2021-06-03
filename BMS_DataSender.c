@@ -1,5 +1,7 @@
 /* **************************************************************************************************
 * File Name   : BMS_DataSender.c
+* Description : Source file for BMS Sender type selection .
+                Here we are streaming BMS temperature and Charge rate parameters and printing it on Console
 * Author      : Harshitha Subramani
 * * ************************************************************************************************** */
 
@@ -89,7 +91,7 @@ SendStatus Output_ToConsole(float * Temperature, float * ChargeRate,int MAXPARAM
     setvbuf(stderr, NULL, _IONBF, 0);
     for(int i=0;i <= MAXPARAMNUM;i++)
        {
-         printf("Temperature:%0.3f\t\tChargeRate:%0.3f\n", Temperature[i],ChargeRate[i]);
+         printf("Temperature:%0.3fdegrees\t\tChargeRate:%0.3fA\n", Temperature[i],ChargeRate[i]);
        }
      return SENTSUCCESSFULLY;
 }
