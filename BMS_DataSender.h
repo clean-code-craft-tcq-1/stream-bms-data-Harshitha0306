@@ -1,6 +1,7 @@
 /* *************************************************************************
 * File Name   : BMS_DataSender.h
 * Description : Header file for BMS Sender type selection
+* Author      : Harshitha Subramani
 * ************************************************************************* */
 
 #ifndef BMS_DataSender_h
