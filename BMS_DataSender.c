@@ -89,7 +89,7 @@ SendStatus Output_ToConsole(float * Temperature, float * ChargeRate,int MAXPARAM
     setvbuf(stderr, NULL, _IONBF, 0);
     for(int i=0;i <= MAXPARAMNUM;i++)
        {
-         printf("Temperature:%0.3f,ChargeRate:%0.3f\n", Temperature[i],ChargeRate[i]);
+         printf("Temperature:%0.3f\t\tChargeRate:%0.3f\n", Temperature[i],ChargeRate[i]);
        }
      return SENTSUCCESSFULLY;
 }
