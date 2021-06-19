@@ -83,9 +83,9 @@ TEST_CASE("Valid data SMA check Range 1")
 	float smaCalc ;
 	SMASum = 0;
 	int  range = 1;
-	float dataArray[10] = {65.34,98.66,10.25,-1.36,85.6,45.6,17.5,-10.00,0,36.55};
-	float SMABufferExpected[10] = {65.34,98.66,10.25,-1.36,85.6,45.6,17.5,-10.00,0,36.55};
-	for(int i=0; i<10;i++)
+	float dataArray[11] = {65.34,98.66,10.25,-1.36,85.6,45.6,17.5,-10.00,0,36.55.99.99};
+	float SMABufferExpected[11] = {65.34,98.66,10.25,-1.36,85.6,45.6,17.5,-10.00,0,36.55,99.99};
+	for(int i=0; i<11;i++)
 	{
 	    smaCalc =  movingAverageForRangeofValue(SMABuffer, &SMASum ,0, range, dataArray[i]);
       	assert(fabs(smaCalc - SMABufferExpected[i]) <0.01);
@@ -99,9 +99,9 @@ TEST_CASE("Valid data SMA check Range 0")
 	float smaCalc ;
 	SMASum = 0;
 	int  range = 0;
-	float dataArray[10] = {65.34,98.66,10.25,-1.36,85.6,45.6,17.5,-10.00,0,36.55};
+	float dataArray[9] = {65.34,98.66,10.25,-1.36,85.6,45.6,17.5,-10.00,0};
 	
-	for(int i=0; i<10;i++)
+	for(int i=0; i<9;i++)
 	{
 	    smaCalc =  movingAverageForRangeofValue(SMABuffer, &SMASum ,0, range, dataArray[i]);
       	assert(fabs(smaCalc - INVALID_INPUT) <0.01);
@@ -264,9 +264,6 @@ TEST_CASE("Min max check test ")
     {
         for(int j=0;j<NUMOFPARAM;j++)
         {
-            printf("\n %d Min :%f  Max:%f",i, TestMinOuputValue[i][j], TestMaxOuputValue[i][i]);
-            printf("\n %d Min :%f  Max:%f",i, ExpectedMin1[j][i], ExpectedMax1[j][i]);
-           
             assert(fabs(TestMinOuputValue[i][j] - ExpectedMin1[i][j]) < 0.02);
             assert(fabs(TestMaxOuputValue[i][j] - ExpectedMax1[i][j]) < 0.02);
             
@@ -279,7 +276,7 @@ TEST_CASE("Min max check test ")
 TEST_CASE("Update function check -UpdateChargeRateCalcData")
 {
 		
-	struct BatteryParamOutput_s BatteryParamInput[5]= {{2.365,25.65,10.23},
+	struct BatteryParamOutput_s BatteryParamInput[4]= {{2.365,25.65,10.23},
 													   {71.35,9.14,-23.23},
 													   {98.65,100.25,4.87},
 													   {0.00,9563.23,-1.235},
@@ -290,7 +287,7 @@ TEST_CASE("Update function check -UpdateChargeRateCalcData")
 	TestCount[CHARGERATE] = 0;
 	
 	/* Valid range data*/
-	for(int i=0;i<5;i++)
+	for(int i=0;i<4;i++)
 	{
 		UpdateChargeRateCalcData(BatteryParamInput[i]);
 		assert(fabs(BatteryParamInput[i].SMA - TestSMAOuputValue[i][CHARGERATE]) < 0.02);
