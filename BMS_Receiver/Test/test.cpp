@@ -9,7 +9,7 @@
 TEST_CASE("Test from Console - Valid data")
 {
 	float tempCalc, ChrgRateCalc;
-	char *str;
+	char str[100];
 	strcpy(str,"Temperature:25.6degress     ChargeRate:1.2A");
     tempCalc = getParamValuefromConsoleCustom(str,TEMPERATURE);
     ChrgRateCalc = getParamValuefromConsoleCustom(str,CHARGERATE);
@@ -22,7 +22,7 @@ TEST_CASE("Test from Console - Valid data")
 TEST_CASE("Test from Console - Temperature data not found")
 {
 	float tempCalc, ChrgRateCalc;
-	char *str;
+	char str[100];
 	strcpy(str,"TemperaturE:25.6degress     ChargeRate:3.6A");
     tempCalc = getParamValuefromConsoleCustom(str,TEMPERATURE);
     ChrgRateCalc = getParamValuefromConsoleCustom(str,CHARGERATE);
@@ -35,7 +35,7 @@ TEST_CASE("Test from Console - Temperature data not found")
 TEST_CASE("Test from Console - ChargeRate data not found")
 {
 	float tempCalc, ChrgRateCalc;
-	char *str;
+	char str[100];
 	strcpy(str,"Temperature:99.5degress     Chargerate:3.6A");
     tempCalc = getParamValuefromConsoleCustom(str,TEMPERATURE);
     ChrgRateCalc = getParamValuefromConsoleCustom(str,CHARGERATE);
@@ -48,7 +48,7 @@ TEST_CASE("Test from Console - ChargeRate data not found")
 TEST_CASE("Test from Console - Different order")
 {
 	float tempCalc, ChrgRateCalc;
-	char *str;
+	char str[100];
 	strcpy(str,"Chargerate:5.4A		Temperature:13.7degress");
     tempCalc = getParamValuefromConsoleCustom(str,TEMPERATURE);
     ChrgRateCalc = getParamValuefromConsoleCustom(str,CHARGERATE);
