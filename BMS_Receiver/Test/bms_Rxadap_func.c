@@ -1,5 +1,6 @@
 #include "bms_Rx.h"
 
+int TestCount[NUMOFPARAM] = {0};
 /****************************************************************************************
 *Func desc : The function which updates the calculated value based on passed structure, it can be adapted based on needs, 
 			 Currently it does printing of param values
