@@ -49,12 +49,12 @@ TEST_CASE("Test from Console - Different order")
 {
 	float tempCalc, ChrgRateCalc;
 	char str[100];
-	strcpy(str,"Chargerate:5.4A		Temperature:13.7degress");
+	strcpy(str,"ChargeRate:4.9A		Temperature:13.7degress");
     tempCalc = getParamValuefromConsoleCustom(str,TEMPERATURE);
     ChrgRateCalc = getParamValuefromConsoleCustom(str,CHARGERATE);
     
 	REQUIRE(fabs(tempCalc - 13.7) <0.01);
-	REQUIRE(fabs(ChrgRateCalc - 5.4)<0.01);
+	REQUIRE(fabs(ChrgRateCalc - 4.9)<0.01);
 }
 
 /* End of  Validating Get data from Console */
@@ -104,7 +104,7 @@ TEST_CASE("Valid data SMA check Range 0")
 	for(int i=0; i<9;i++)
 	{
 	    smaCalc =  movingAverageForRangeofValue(SMABuffer, &SMASum ,0, range, dataArray[i]);
-      	assert(fabs(smaCalc - INVALID_VALUE) <0.01);
+      	assert(fabs(smaCalc - INVALID_SMARANGE) <0.01);
 		
 	}
 }
