@@ -82,5 +82,5 @@ bool UpdateChargeRateCalcData (struct BatteryParamOutput_s BatteryParamEvaluated
 
 bool IsWithinRange(float value, float min, float max);
 
-float movingAverageForRangeofValue(float *ptrArrNumbers, float *ptrSum, enum BATTERYPARAM param_id, int range, float nextNum);
+float movingAverageForRangeofValue(float *ptrArrNumbers, float *ptrSum, int param_id, int range, float nextNum);
 /************************************************************/

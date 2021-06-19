@@ -152,7 +152,7 @@ float getParamValuefromConsoleCustom(char *scanLine, enum BATTERYPARAM batteryPa
 *Return    : Calculated SMA value for range passed - float type
 *****************************************************************************************/
 
-float movingAverageForRangeofValue(float *ptrArrNumbers, float *ptrSum, enum BATTERYPARAM param_id, int range, float nextNum)
+float movingAverageForRangeofValue(float *ptrArrNumbers, float *ptrSum, int param_id, int range, float nextNum)
 {
 	static int pos[NUMOFPARAM]= {0};
 	
