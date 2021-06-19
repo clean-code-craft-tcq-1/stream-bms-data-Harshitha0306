@@ -33,7 +33,6 @@ void BMSDataReceiverCalc()
    float BMSParamValueRxd[NUMOFPARAM] = {0};
    float ReadingsBuffer[NUMOFPARAM][SMA_RANGE]= {0};
    float ReadingsSum[NUMOFPARAM]={0};
-   int pos[NUMOFPARAM]={0};
    char str[MAXLENGTH_INPUTSTRING];
    struct BatteryParamOutput_s INVALID_VALUE_s = {INVALID_VALUE,INVALID_VALUE,INVALID_VALUE};
    
@@ -54,7 +53,7 @@ void BMSDataReceiverCalc()
 	    {
 	        EoFDetected  = 1;
 	    }
-	   #endif
+	    #endif
 	   
         for (int i=0 ; i < NUMOFPARAM; i++)
 	    {
@@ -63,7 +62,7 @@ void BMSDataReceiverCalc()
 	        if(IsWithinRange(BMSParamValueRxd[i], BatteryParam[i].minValue , BatteryParam[i].maxValue))
 	        {
 	  
-	            BatteryParamEvaluated[i].SMA =  movingAverageForRangeofValue((ReadingsBuffer+i), (ReadingsSum+i), i, SMA_RANGE, BMSParamValueRxd[i]);
+	            BatteryParamEvaluated[i].SMA =  movingAverageForRangeofValue((ReadingsBuffer[i]), (ReadingsSum+i), i, SMA_RANGE, BMSParamValueRxd[i]);
 	            
 	            BatteryParamEvaluated[i].minRxd = (BMSParamValueRxd[i] < BatteryParamEvaluated[i].minRxd) ? BMSParamValueRxd[i] : BatteryParamEvaluated[i].minRxd;
 	            
@@ -153,7 +152,7 @@ float getParamValuefromConsoleCustom(char *scanLine, enum BATTERYPARAM batteryPa
 *Return    : Calculated SMA value for range passed - float type
 *****************************************************************************************/
 
-float movingAverageForRangeofValue(float *ptrArrNumbers, float *ptrSum, int param_id, int range, float nextNum)
+float movingAverageForRangeofValue(float *ptrArrNumbers, float *ptrSum, enum BATTERYPARAM param_id, int range, float nextNum)
 {
 	static int pos[NUMOFPARAM]= {0};
 	
