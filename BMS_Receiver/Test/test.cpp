@@ -312,9 +312,9 @@ TEST_CASE("Update function check -UpdateTemperatureCalcData")
 	/* Valid range data*/
 	for(int i=0;i<5;i++)
 	{
-		UpdateChargeRateCalcData(BatteryParamInput[i]);
+		UpdateTemperatureCalcData(BatteryParamInput[i]);
 		assert(fabs(BatteryParamInput[i].SMA - TestSMAOuputValue[i][CHARGERATE]) < 0.02);
-		assert(fabs(BatteryParamInput[i].minRxd - TestMinOuputValue[i][CHARGERATE]) < 0.02);
 		assert(fabs(BatteryParamInput[i].maxRxd - TestMaxOuputValue[i][CHARGERATE]) < 0.02);
+		assert(fabs(BatteryParamInput[i].minRxd - TestMinOuputValue[i][CHARGERATE]) < 0.02);
 	}	
 }
