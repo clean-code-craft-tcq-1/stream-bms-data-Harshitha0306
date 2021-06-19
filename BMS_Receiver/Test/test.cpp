@@ -1,4 +1,3 @@
-
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 
 #include "test/catch.hpp"
@@ -66,18 +65,14 @@ TEST_CASE("Valid data SMA check")
 	float SMABuffer[5]={0}, SMASum;
 	float smaCalc ;
 	SMASum = 0;
-	int pos = 0, range = 5;
+	int  range = 5;
 	float dataArray[10] = {65.34,98.66,10.25,-1.36,85.6,45.6,17.5,-10.00,0,36.55};
 	float SMABufferExpected[10] = {13.06,32.8,34.85,34.57,51.69,47.75,31.51,27.46,27.74,17.93};
 	for(int i=0; i<10;i++)
 	{
-	    smaCalc =  movingAverageForRangeofValue(SMABuffer, &SMASum ,pos, range, dataArray[i]);
+	    smaCalc =  movingAverageForRangeofValue(SMABuffer, &SMASum ,0, range, dataArray[i]);
       	assert(fabs(smaCalc - SMABufferExpected[i]) <0.01);
-		pos++;
-       if (pos >= range)
-        {
-            pos = 0;
-        }
+		
 	}
 
 }
@@ -87,18 +82,14 @@ TEST_CASE("Valid data SMA check Range 1")
 	float SMABuffer[5]={0}, SMASum;
 	float smaCalc ;
 	SMASum = 0;
-	int pos = 0, range = 1;
+	int  range = 1;
 	float dataArray[10] = {65.34,98.66,10.25,-1.36,85.6,45.6,17.5,-10.00,0,36.55};
 	float SMABufferExpected[10] = {65.34,98.66,10.25,-1.36,85.6,45.6,17.5,-10.00,0,36.55};
 	for(int i=0; i<10;i++)
 	{
-	    smaCalc =  movingAverageForRangeofValue(SMABuffer, &SMASum ,pos, range, dataArray[i]);
+	    smaCalc =  movingAverageForRangeofValue(SMABuffer, &SMASum ,0, range, dataArray[i]);
       	assert(fabs(smaCalc - SMABufferExpected[i]) <0.01);
-		pos++;
-       if (pos >= range)
-        {
-            pos = 0;
-        }
+		
 	}
 }
 
@@ -107,18 +98,14 @@ TEST_CASE("Valid data SMA check Range 0")
 	float SMABuffer[5]={0}, SMASum;
 	float smaCalc ;
 	SMASum = 0;
-	int pos = 0, range = 0;
+	int  range = 0;
 	float dataArray[10] = {65.34,98.66,10.25,-1.36,85.6,45.6,17.5,-10.00,0,36.55};
 	
 	for(int i=0; i<10;i++)
 	{
-	    smaCalc =  movingAverageForRangeofValue(SMABuffer, &SMASum ,pos, range, dataArray[i]);
+	    smaCalc =  movingAverageForRangeofValue(SMABuffer, &SMASum ,0, range, dataArray[i]);
       	assert(fabs(smaCalc - INVALID_INPUT) <0.01);
-		pos++;
-       if (pos >= range)
-        {
-            pos = 0;
-        }
+		
 	}
 }
 
