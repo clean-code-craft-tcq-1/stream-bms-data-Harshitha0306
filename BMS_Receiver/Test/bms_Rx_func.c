@@ -57,7 +57,7 @@ void BMSDataReceiverCalc()
 	   
         for (int i=0 ; i < NUMOFPARAM; i++)
 	    {
-	        BMSParamValueRxd[i] = getParamValuefromConsoleCustom(str,i);
+	        BMSParamValueRxd[i] = getParamValuefromConsoleCustom(str,(enum BATTERYPARAM)i);
 	        
 	        if(IsWithinRange(BMSParamValueRxd[i], BatteryParam[i].minValue , BatteryParam[i].maxValue))
 	        {
