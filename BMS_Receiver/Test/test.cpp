@@ -83,7 +83,7 @@ TEST_CASE("Valid data SMA check Range 1")
 	float smaCalc ;
 	SMASum = 0;
 	int  range = 1;
-	float dataArray[11] = {65.34,98.66,10.25,-1.36,85.6,45.6,17.5,-10.00,0,36.55.99.99};
+	float dataArray[11] = {65.34,98.66,10.25,-1.36,85.6,45.6,17.5,-10.00,0,36.55,99.99};
 	float SMABufferExpected[11] = {65.34,98.66,10.25,-1.36,85.6,45.6,17.5,-10.00,0,36.55,99.99};
 	for(int i=0; i<11;i++)
 	{
@@ -104,7 +104,7 @@ TEST_CASE("Valid data SMA check Range 0")
 	for(int i=0; i<9;i++)
 	{
 	    smaCalc =  movingAverageForRangeofValue(SMABuffer, &SMASum ,0, range, dataArray[i]);
-      	assert(fabs(smaCalc - INVALID_INPUT) <0.01);
+      	assert(fabs(smaCalc - INVALID_VALUE) <0.01);
 		
 	}
 }
@@ -276,10 +276,12 @@ TEST_CASE("Min max check test ")
 TEST_CASE("Update function check -UpdateChargeRateCalcData")
 {
 		
-	struct BatteryParamOutput_s BatteryParamInput[4]= {{2.365,25.65,10.23}, {71.35,9.14,-23.23}, {0.00,9563.23,-1.235},{-3.754,0.00,123.45}};
+	struct BatteryParamOutput_s BatteryParamInput[4]= {{2.365,25.65,10.23},
+													   {71.35,9.14,-23.23},
+													   {0.00,9563.23,-1.235},
+													   {-3.754,0.00,123.45}};
 		
 	/*Reset Test count*/
-	TestCount[TEMPERATURE] = 0;
 	TestCount[CHARGERATE] = 0;
 	
 	/* Valid range data*/
@@ -303,7 +305,6 @@ TEST_CASE("Update function check -UpdateTemperatureCalcData")
 			
 	/*Reset Test count*/
 	TestCount[TEMPERATURE] = 0;
-	TestCount[CHARGERATE] = 0;
 	
 	/* Valid range data*/
 	for(int i=0;i<5;i++)
