@@ -1,1 +1,1 @@
-#define TESTMODE 0
+#define TEST_MODE 0
