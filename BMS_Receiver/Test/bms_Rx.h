@@ -17,7 +17,7 @@
 
 
 /***************DEFINES section *****************************/
-#define TEST_MODE 0
+#define TEST_MODE 1
 
 #define CHRGRATE_MIN 0.0
 #define CHRGRATE_MAX 5.0
