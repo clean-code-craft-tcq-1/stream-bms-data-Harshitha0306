@@ -18,7 +18,10 @@ jobs:
       
     - name: run
       run: ./sender_test
-
+      
+    - name: build for production receiver
+      run: g++ -Wall -Wextra -o receiver -IBMS_Receiver ./BMS_Receiver/prod/*.c 
+      
     - name: build for test receiver
       run: g++ -DUNIT_TEST -Wall -Wextra -fprofile-arcs -ftest-coverage -o bms_Rx_test ./BMS_Receiver/Test/*.c*
       
@@ -38,8 +41,6 @@ jobs:
     - name: build for production sender
       run: g++ -Wall -Wextra -o sender ./main_sender.c ./BMS_DataSender.c 
       
-    - name: build for production receiver
-      run: g++ -Wall -Wextra -o receiver -IBMS_Receiver ./BMS_Receiver/prod/*.c 
-      
+     
     - name: production code run
       run: ./sender | ./receiver
