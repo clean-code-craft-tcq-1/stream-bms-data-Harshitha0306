@@ -36,7 +36,7 @@ jobs:
         retention-days: 1
         
     - name: build for production sender
-      run: g++ -Wall -Wextra -o sender ./sender_main.c ./BMS_DataSender.c 
+      run: g++ -Wall -Wextra -o sender ./main_sender.c ./BMS_DataSender.c 
       
     - name: build for production receiver
       run: g++ -Wall -Wextra -o receiver ./BMS_Receiver/prod/*.c 
