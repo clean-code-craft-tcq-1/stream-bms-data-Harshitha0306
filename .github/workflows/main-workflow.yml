@@ -14,10 +14,10 @@ jobs:
       run: sudo apt-get install -y gcovr
 
     - name: build for test sender
-      run: g++ -DUNIT_TEST -Wall -Wextra -fprofile-arcs -ftest-coverage -o sender ./test.cpp ./BMS_DataSender.c 
+      run: g++ -DUNIT_TEST -Wall -Wextra -fprofile-arcs -ftest-coverage -o sender_test ./test.cpp ./BMS_DataSender.c 
       
     - name: run
-      run: ./sender
+      run: ./sender_test
 
     - name: build for test receiver
       run: g++ -DUNIT_TEST -Wall -Wextra -fprofile-arcs -ftest-coverage -o bms_Rx_test ./BMS_Receiver/Test/*.c*
@@ -35,6 +35,9 @@ jobs:
         path: ./*.html
         retention-days: 1
         
+    - name: build for production sender
+      run: g++ -Wall -Wextra -o sender ./sender_main.c ./BMS_DataSender.c 
+      
     - name: build for production receiver
       run: g++ -Wall -Wextra -o receiver ./BMS_Receiver/prod/*.c 
       
