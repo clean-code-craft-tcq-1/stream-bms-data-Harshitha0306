@@ -17,7 +17,7 @@
 
 
 /***************DEFINES section *****************************/
-#define TEST_MODE 1
+#define TEST_MODE 0
 
 #define CHRGRATE_MIN 0.0
 #define CHRGRATE_MAX 5.0
@@ -81,6 +81,10 @@ bool UpdateTemperatureCalcData (struct BatteryParamOutput_s BatteryParamEvaluate
 bool UpdateChargeRateCalcData (struct BatteryParamOutput_s BatteryParamEvaluated);
 
 bool IsWithinRange(float value, float min, float max);
+
+float MinimumOfTwoFloatNumbers(float value1, float value2);
+
+float MaximumOfTwoFloatNumbers(float value1, float value2);
 
 float movingAverageForRangeofValue(float *ptrArrNumbers, float *ptrSum, int param_id, int range, float nextNum);
 /************************************************************/

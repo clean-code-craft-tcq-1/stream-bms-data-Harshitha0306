@@ -19,8 +19,16 @@ bool UpdateTemperatureCalcData (struct BatteryParamOutput_s BatteryParamEvaluate
     TestSMAOuputValue[i][TEMPERATURE] = BatteryParamEvaluated.SMA;
     TestMinOuputValue[i][TEMPERATURE] = BatteryParamEvaluated.minRxd;
     TestMaxOuputValue[i][TEMPERATURE] = BatteryParamEvaluated.maxRxd;
-    TestCount[TEMPERATURE]++;
-	#endif
+	TestCount[TEMPERATURE]++;
+	if(TestCount[TEMPERATURE] > TestSize)
+	{
+		sig_caught = 1;
+	}
+	else
+	{
+		sig_caught = 0;
+	}
+    #endif
 	if (BatteryParamEvaluated.SMA == INVALID_VALUE)
 	{
 	   printf("No Valid Temperature data received\n");
@@ -50,8 +58,17 @@ bool UpdateChargeRateCalcData (struct BatteryParamOutput_s BatteryParamEvaluated
     TestSMAOuputValue[i][CHARGERATE] = BatteryParamEvaluated.SMA;
     TestMinOuputValue[i][CHARGERATE] = BatteryParamEvaluated.minRxd;
     TestMaxOuputValue[i][CHARGERATE] = BatteryParamEvaluated.maxRxd;
-    TestCount[CHARGERATE]++;
-	#endif
+	TestCount[CHARGERATE]++;
+	if(TestCount[CHARGERATE] > TestSize)
+	{
+		sig_caught = 1;
+	}
+	else
+	{
+		sig_caught = 0;
+	}
+    #endif
+	
 	if (BatteryParamEvaluated.SMA == INVALID_VALUE)
 	{
 	   printf("No Valid Charge Rate data received\n");
@@ -85,4 +102,39 @@ bool IsWithinRange(float value, float min, float max)
         return 0;
     }
 }
-    
+
+/****************************************************************************************
+*Func desc : The function returns minimum of two values passed 
+*Param     : value1   - Value1 
+			 value2   - Value2
+*Return    : minimum of 2 values passed - float type 
+*****************************************************************************************/
+float MinimumOfTwoFloatNumbers(float value1, float value2)
+{
+	if (value1 < value2)
+	{
+		return value1;
+	}
+	else 
+	{
+		return value2;
+	}
+}
+
+/****************************************************************************************
+*Func desc : The function returns maximum of two values passed 
+*Param     : value1   - Value1 
+			 value2   - Value2
+*Return    : maximum of 2 values passed - float type 
+*****************************************************************************************/
+float MaximumOfTwoFloatNumbers(float value1, float value2)
+{
+	if (value1 > value2)
+	{
+		return value1;
+	}
+	else 
+	{
+		return value2;
+	}
+}

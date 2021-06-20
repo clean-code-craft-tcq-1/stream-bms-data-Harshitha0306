@@ -40,17 +40,14 @@ void BMSDataReceiverCalc()
    struct BatteryParamOutput_s BatteryParamEvaluated[NUMOFPARAM]= {{0, TEMP_MAX, TEMP_MIN},
                                                              {0, CHRGRATE_MAX , CHRGRATE_MIN}};
   
-    #if TEST_MODE
-    int count=0;
-    #endif 
-
     do
     {
         #if(TEST_MODE)
-	    strcpy(str,strInput[count]);
+	    strcpy(str,strInput[TestCount[TEMPERATURE]]);
 	    #else
 	    if(fgets(str,MAXLENGTH_INPUTSTRING, stdin)==NULL)
 	    {
+			strcpy(str,"EoF detected");
 	        EoFDetected  = 1;
 	    }
 	    #endif
@@ -64,9 +61,9 @@ void BMSDataReceiverCalc()
 	  
 	            BatteryParamEvaluated[i].SMA =  movingAverageForRangeofValue((ReadingsBuffer[i]), (ReadingsSum+i), i, SMA_RANGE, BMSParamValueRxd[i]);
 	            
-	            BatteryParamEvaluated[i].minRxd = (BMSParamValueRxd[i] < BatteryParamEvaluated[i].minRxd) ? BMSParamValueRxd[i] : BatteryParamEvaluated[i].minRxd;
+	            BatteryParamEvaluated[i].minRxd = MinimumOfTwoFloatNumbers(BMSParamValueRxd[i],BatteryParamEvaluated[i].minRxd);
 	            
-	            BatteryParamEvaluated[i].maxRxd = (BMSParamValueRxd[i] > BatteryParamEvaluated[i].maxRxd) ? BMSParamValueRxd[i] : BatteryParamEvaluated[i].maxRxd;
+	            BatteryParamEvaluated[i].maxRxd = MaximumOfTwoFloatNumbers(BMSParamValueRxd[i],BatteryParamEvaluated[i].maxRxd);
 	            
 		        UpdateParamSMAData[i](BatteryParamEvaluated[i]);
 		        
@@ -83,15 +80,10 @@ void BMSDataReceiverCalc()
 	    printf("SMA Temperature:%f, ChargeRate:%f\n",BatteryParamEvaluated[0].SMA,BatteryParamEvaluated[1].SMA);
 		printf("Min Temperature:%f, ChargeRate:%f\n",BatteryParamEvaluated[0].minRxd,BatteryParamEvaluated[1].minRxd);
 		printf("Max Temperature:%f, ChargeRate:%f\n\n",BatteryParamEvaluated[0].maxRxd,BatteryParamEvaluated[1].maxRxd);
-	    	    
-	    count ++;
-	    #endif
-    }
-    #if(TEST_MODE)
-    while(count < TestSize);
-    #else
-    while(!((EoFDetected == 1)||(sig_caught == 1)));
-    #endif
+	    #endif	    
+ 
+	}while(!((EoFDetected == 1)||(sig_caught == 1)));
+   
     
 }
 
