@@ -37,7 +37,6 @@
 /***************GLOBAL variables section **********************/
 enum BATTERYPARAM {TEMPERATURE, CHARGERATE, NUMOFPARAM};
 
-extern bool sig_caught ;
 
 struct BatteryParam_s
 {
