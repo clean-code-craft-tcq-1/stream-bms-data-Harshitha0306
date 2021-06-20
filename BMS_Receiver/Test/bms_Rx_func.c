@@ -48,6 +48,7 @@ void BMSDataReceiverCalc()
 	    if(fgets(str,MAXLENGTH_INPUTSTRING, stdin)==NULL)
 	    {
 			strcpy(str,"EoF detected");
+			printf("EoF detected, stopping reception\n");
 	        EoFDetected  = 1;
 	    }
 	    #endif

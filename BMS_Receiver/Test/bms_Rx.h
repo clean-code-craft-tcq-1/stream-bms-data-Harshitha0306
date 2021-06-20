@@ -55,7 +55,7 @@ struct BatteryParamOutput_s
 
 extern struct BatteryParam_s BatteryParam[NUMOFPARAM];
 
-extern bool sig_caught ;
+extern int sig_caught ;
 
 #if(TEST_MODE)
 #define  TestSize 13
