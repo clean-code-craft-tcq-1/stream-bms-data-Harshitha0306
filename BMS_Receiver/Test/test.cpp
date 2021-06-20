@@ -133,6 +133,64 @@ TEST_CASE("Range check")
 
 /*End of IsWithin Range function validation */
 
+/*Minimum finding function validation */
+TEST_CASE("Minimum function check ")
+{
+	float value1, value2, min;
+	
+	/* Value2 less than value1*/
+	value1 = 75.2;
+	value2 = 13.7;
+	min = MinimumOfTwoFloatNumbers(value1,value2);
+  	assert(fabs(min - 13.7 ) < 0.01);
+	/* Value1 less than value2*/
+	value1 = 100.87;
+	value2 = 100.99;
+	min = MinimumOfTwoFloatNumbers(value1,value2);
+  	assert(fabs(min - 100.87 ) < 0.01);
+	/* Both equal*/
+	value1 = 54.37;
+	value2 = 54.37;
+	min = MinimumOfTwoFloatNumbers(value1,value2);
+  	assert(fabs(min - 54.37 ) < 0.01);
+	/* Minimum check for negative values*/
+	value1 = -1.23;
+	value2 = -2.35;
+	min = MinimumOfTwoFloatNumbers(value1,value2);
+  	assert(fabs(min - (-2.35) ) < 0.01);
+	
+}
+/*End of Minimum finding function validation */
+
+/*Maximumfinding function validation */
+TEST_CASE("Maximum function check ")
+{
+	float value1, value2, max;
+	
+	/* Value2 less than value1*/
+	value1 = 75.2;
+	value2 = 13.7;
+	max = MaximumOfTwoFloatNumbers(value1,value2);
+  	assert(fabs(max - 75.2 ) < 0.01);
+	/* Value1 less than value2*/
+	value1 = 100.87;
+	value2 = 100.99;
+	max = MaximumOfTwoFloatNumbers(value1,value2);
+  	assert(fabs(max - 100.99 ) < 0.01);
+	/* Both equal*/
+	value1 = 54.37;
+	value2 = 54.37;
+	max = MaximumOfTwoFloatNumbers(value1,value2);
+  	assert(fabs(max - 54.37 ) < 0.01);
+	/* Maximum check for negative values*/
+	value1 = -1.23;
+	value2 = -2.35;
+	max = MaximumOfTwoFloatNumbers(value1,value2);
+  	assert(fabs(max - (-1.23) ) < 0.01);
+	
+}
+/*End of Minimum finding function validation */
+
 /*Validating Integrated test */
 TEST_CASE("Integrated test ")
 {
@@ -149,6 +207,10 @@ TEST_CASE("Integrated test ")
     strcpy(strInput[10],"Temperature:77.86degress     ChargeRate:0.54A"); 
     strcpy(strInput[11],"Temperature:20.00degress     Chargerate:4.56A"); /*Charge rate not found */
     
+	/*Reset test count*/
+	TestCount[TEMPERATURE] = 0;
+	TestCount[CHARGERATE] = 0;
+	
     BMSDataReceiverCalc();
     
     float ExpectedSMA[TestSize][NUMOFPARAM]= {5.12,0.24,
@@ -229,6 +291,7 @@ TEST_CASE("Min max check test ")
 	/*Reset Test count*/
 	TestCount[TEMPERATURE] = 0;
 	TestCount[CHARGERATE] = 0;
+	
 	
     BMSDataReceiverCalc();
                                  
