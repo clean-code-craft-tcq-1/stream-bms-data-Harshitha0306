@@ -24,7 +24,7 @@ bool UpdateTemperatureCalcData (struct BatteryParamOutput_s BatteryParamEvaluate
     TestMinOuputValue[i][TEMPERATURE] = BatteryParamEvaluated.minRxd;
     TestMaxOuputValue[i][TEMPERATURE] = BatteryParamEvaluated.maxRxd;
 	TestCount[TEMPERATURE]++;
-	if(TestCount[TEMPERATURE] > TestSize)
+	if(TestCount[TEMPERATURE] >= TestSize)
 	{
 		sig_caught = 1;
 	}
@@ -63,7 +63,7 @@ bool UpdateChargeRateCalcData (struct BatteryParamOutput_s BatteryParamEvaluated
     TestMinOuputValue[i][CHARGERATE] = BatteryParamEvaluated.minRxd;
     TestMaxOuputValue[i][CHARGERATE] = BatteryParamEvaluated.maxRxd;
 	TestCount[CHARGERATE]++;
-	if(TestCount[CHARGERATE] > TestSize)
+	if(TestCount[CHARGERATE] >= TestSize)
 	{
 		sig_caught = 1;
 	}
