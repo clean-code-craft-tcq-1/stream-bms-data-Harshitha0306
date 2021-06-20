@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <test_info.h>
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -17,7 +18,7 @@
 
 
 /***************DEFINES section *****************************/
-#define TEST_MODE 0
+
 
 #define CHRGRATE_MIN 0.0
 #define CHRGRATE_MAX 5.0
