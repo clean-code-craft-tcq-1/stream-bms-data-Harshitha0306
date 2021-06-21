@@ -70,9 +70,11 @@ extern char strInput[TestSize][100];
 
 /**************Function prototype section*********************/
 
-float getParamValuefromConsoleCustom(char *scanLine, enum BATTERYPARAM batteryParam);
+float getParamValuefromString(char *scanLine, enum BATTERYPARAM batteryParam);
 
 void BMSDataReceiverCalc();
+
+int GetParamDataString(char *appendStr, int stringSize);
 
 typedef bool (*UpdateParamSMAData_funcPtr)(struct BatteryParamOutput_s BatteryParamEvaluated);
 
