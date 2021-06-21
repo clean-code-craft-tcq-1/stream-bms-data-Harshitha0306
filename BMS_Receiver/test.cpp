@@ -11,8 +11,8 @@ TEST_CASE("Test from Console - Valid data")
 	float tempCalc, ChrgRateCalc;
 	char str[100];
 	strcpy(str,"Temperature:25.6degress     ChargeRate:1.2A");
-    tempCalc = getParamValuefromConsoleCustom(str,TEMPERATURE);
-    ChrgRateCalc = getParamValuefromConsoleCustom(str,CHARGERATE);
+    tempCalc = getParamValuefromString(str,TEMPERATURE);
+    ChrgRateCalc = getParamValuefromString(str,CHARGERATE);
     
 	REQUIRE(fabs(tempCalc - 25.6)<0.01);
 	REQUIRE(fabs(ChrgRateCalc - 1.2)<0.01);
@@ -24,8 +24,8 @@ TEST_CASE("Test from Console - Temperature data not found")
 	float tempCalc, ChrgRateCalc;
 	char str[100];
 	strcpy(str,"TemperaturE:25.6degress     ChargeRate:3.6A");
-    tempCalc = getParamValuefromConsoleCustom(str,TEMPERATURE);
-    ChrgRateCalc = getParamValuefromConsoleCustom(str,CHARGERATE);
+    tempCalc = getParamValuefromString(str,TEMPERATURE);
+    ChrgRateCalc = getParamValuefromString(str,CHARGERATE);
     
 	REQUIRE(fabs(tempCalc - VALUE_NOTFOUND) <0.01);
 	REQUIRE(fabs(ChrgRateCalc - 3.6)<0.01);
@@ -37,8 +37,8 @@ TEST_CASE("Test from Console - ChargeRate data not found")
 	float tempCalc, ChrgRateCalc;
 	char str[100];
 	strcpy(str,"Temperature:99.5degress     Chargerate:3.6A");
-    tempCalc = getParamValuefromConsoleCustom(str,TEMPERATURE);
-    ChrgRateCalc = getParamValuefromConsoleCustom(str,CHARGERATE);
+    tempCalc = getParamValuefromString(str,TEMPERATURE);
+    ChrgRateCalc = getParamValuefromString(str,CHARGERATE);
     
 	REQUIRE(fabs(tempCalc - 99.5) <0.01);
 	REQUIRE(fabs(ChrgRateCalc - VALUE_NOTFOUND)<0.01);
@@ -50,8 +50,8 @@ TEST_CASE("Test from Console - Different order")
 	float tempCalc, ChrgRateCalc;
 	char str[100];
 	strcpy(str,"ChargeRate:4.9A		Temperature:13.7degress");
-    tempCalc = getParamValuefromConsoleCustom(str,TEMPERATURE);
-    ChrgRateCalc = getParamValuefromConsoleCustom(str,CHARGERATE);
+    tempCalc = getParamValuefromString(str,TEMPERATURE);
+    ChrgRateCalc = getParamValuefromString(str,CHARGERATE);
     
 	REQUIRE(fabs(tempCalc - 13.7) <0.01);
 	REQUIRE(fabs(ChrgRateCalc - 4.9)<0.01);
@@ -60,7 +60,7 @@ TEST_CASE("Test from Console - Different order")
 /* End of  Validating Get data from Console */
 
 /* SMA function validation */
-TEST_CASE("Valid data SMA check")
+TEST_CASE("Valid data range SMA check")
 {
 	float SMABuffer[5]={0}, SMASum;
 	float smaCalc ;
@@ -191,7 +191,53 @@ TEST_CASE("Maximum function check ")
 }
 /*End of Minimum finding function validation */
 
-/*Validating Integrated test */
+/*Validating Update data  test function*/
+TEST_CASE("Update function check -UpdateChargeRateCalcData")
+{
+		
+	struct BatteryParamOutput_s BatteryParamInput[4]= {{2.365,25.65,10.23},
+													   {71.35,9.14,-23.23},
+													   {0.00,9563.23,-1.235},
+													   {-3.754,0.00,123.45}};
+		
+	/*Reset Test count*/
+	TestCount[CHARGERATE] = 0;
+	
+	/* Valid range data*/
+	for(int i=0;i<4;i++)
+	{
+		UpdateChargeRateCalcData(BatteryParamInput[i]);
+		assert(fabs(BatteryParamInput[i].SMA - TestSMAOuputValue[i][CHARGERATE]) < 0.02);
+		assert(fabs(BatteryParamInput[i].minRxd - TestMinOuputValue[i][CHARGERATE]) < 0.02);
+		assert(fabs(BatteryParamInput[i].maxRxd - TestMaxOuputValue[i][CHARGERATE]) < 0.02);
+	}	
+}
+
+TEST_CASE("Update function check -UpdateTemperatureCalcData")
+{
+		
+	struct BatteryParamOutput_s BatteryParamInput[5]= {{12.365,2.65,101.23},
+													   {98.65,100.25,4.87},
+													   {71.35,9.14,-23.23},
+													   {0.00,9563.23,-1.235},
+													   {-3.754,0.00,123.45}};
+			
+	/*Reset Test count*/
+	TestCount[TEMPERATURE] = 0;
+	
+	/* Valid range data*/
+	for(int i=0;i<5;i++)
+	{
+		UpdateTemperatureCalcData(BatteryParamInput[i]);
+		assert(fabs(BatteryParamInput[i].SMA - TestSMAOuputValue[i][TEMPERATURE]) < 0.02);
+		assert(fabs(BatteryParamInput[i].maxRxd - TestMaxOuputValue[i][TEMPERATURE]) < 0.02);
+		assert(fabs(BatteryParamInput[i].minRxd - TestMinOuputValue[i][TEMPERATURE]) < 0.02);
+	}	
+}
+/*End of Validating Update data  test function*/
+
+
+/*Validating Integrated test of all functions */
 TEST_CASE("Integrated test ")
 {
 	strcpy(strInput[0],"Temperature:25.6degress     ChargeRate:1.2A");
@@ -271,7 +317,7 @@ TEST_CASE("Integrated test ")
 }
 /*End of Validating Integrated test */	
 
-/*Min and Max detection check */
+/*Min and Max detection check - Also integration check done */
 TEST_CASE("Min max check test ")
 {
 	strcpy(strInput[0],"Temperature:50.65degress     ChargeRate:1.2A");
@@ -334,47 +380,5 @@ TEST_CASE("Min max check test ")
         
     }
 }
+/*End of Min and Max detection check - Also integration check done */
 
-/*Validating Update data  test function*/
-TEST_CASE("Update function check -UpdateChargeRateCalcData")
-{
-		
-	struct BatteryParamOutput_s BatteryParamInput[4]= {{2.365,25.65,10.23},
-													   {71.35,9.14,-23.23},
-													   {0.00,9563.23,-1.235},
-													   {-3.754,0.00,123.45}};
-		
-	/*Reset Test count*/
-	TestCount[CHARGERATE] = 0;
-	
-	/* Valid range data*/
-	for(int i=0;i<4;i++)
-	{
-		UpdateChargeRateCalcData(BatteryParamInput[i]);
-		assert(fabs(BatteryParamInput[i].SMA - TestSMAOuputValue[i][CHARGERATE]) < 0.02);
-		assert(fabs(BatteryParamInput[i].minRxd - TestMinOuputValue[i][CHARGERATE]) < 0.02);
-		assert(fabs(BatteryParamInput[i].maxRxd - TestMaxOuputValue[i][CHARGERATE]) < 0.02);
-	}	
-}
-
-TEST_CASE("Update function check -UpdateTemperatureCalcData")
-{
-		
-	struct BatteryParamOutput_s BatteryParamInput[5]= {{12.365,2.65,101.23},
-													   {98.65,100.25,4.87},
-													   {71.35,9.14,-23.23},
-													   {0.00,9563.23,-1.235},
-													   {-3.754,0.00,123.45}};
-			
-	/*Reset Test count*/
-	TestCount[TEMPERATURE] = 0;
-	
-	/* Valid range data*/
-	for(int i=0;i<5;i++)
-	{
-		UpdateTemperatureCalcData(BatteryParamInput[i]);
-		assert(fabs(BatteryParamInput[i].SMA - TestSMAOuputValue[i][TEMPERATURE]) < 0.02);
-		assert(fabs(BatteryParamInput[i].maxRxd - TestMaxOuputValue[i][TEMPERATURE]) < 0.02);
-		assert(fabs(BatteryParamInput[i].minRxd - TestMinOuputValue[i][TEMPERATURE]) < 0.02);
-	}	
-}
