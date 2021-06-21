@@ -40,33 +40,24 @@ void BMSDataReceiverCalc()
    struct BatteryParamOutput_s BatteryParamEvaluated[NUMOFPARAM]= {{0, TEMP_MAX, TEMP_MIN},
                                                              {0, CHRGRATE_MAX , CHRGRATE_MIN}};
   
-    #if TEST_MODE
-    int count=0;
-    #endif 
-
     do
     {
-        #if(TEST_MODE)
-	    strcpy(str,strInput[count]);
-	    #else
-	    if(fgets(str,MAXLENGTH_INPUTSTRING, stdin)==NULL)
-	    {
-	        EoFDetected  = 1;
-	    }
-	    #endif
-	   
+		EoFDetected = GetParamDataString(str,MAXLENGTH_INPUTSTRING);
+        	   
         for (int i=0 ; i < NUMOFPARAM; i++)
 	    {
-	        BMSParamValueRxd[i] = getParamValuefromConsoleCustom(str,(enum BATTERYPARAM)i);
+	        BMSParamValueRxd[i] = getParamValuefromString(str,(enum BATTERYPARAM)i);
 	        
 	        if(IsWithinRange(BMSParamValueRxd[i], BatteryParam[i].minValue , BatteryParam[i].maxValue))
 	        {
 	  
 	            BatteryParamEvaluated[i].SMA =  movingAverageForRangeofValue((ReadingsBuffer[i]), (ReadingsSum+i), i, SMA_RANGE, BMSParamValueRxd[i]);
 	            
-	            BatteryParamEvaluated[i].minRxd = (BMSParamValueRxd[i] < BatteryParamEvaluated[i].minRxd) ? BMSParamValueRxd[i] : BatteryParamEvaluated[i].minRxd;
+	            BatteryParamEvaluated[i].minRxd = MinimumOfTwoFloatNumbers(BMSParamValueRxd[i],BatteryParamEvaluated[i].minRxd);
 	            
-	            BatteryParamEvaluated[i].maxRxd = (BMSParamValueRxd[i] > BatteryParamEvaluated[i].maxRxd) ? BMSParamValueRxd[i] : BatteryParamEvaluated[i].maxRxd;
+	            BatteryParamEvaluated[i].maxRxd = MaximumOfTwoFloatNumbers(BMSParamValueRxd[i],BatteryParamEvaluated[i].maxRxd);
+				
+				/*In case if additional statistics data are to be computed, the same to be appended before UpdateParamSMAData*/
 	            
 		        UpdateParamSMAData[i](BatteryParamEvaluated[i]);
 		        
@@ -83,15 +74,10 @@ void BMSDataReceiverCalc()
 	    printf("SMA Temperature:%f, ChargeRate:%f\n",BatteryParamEvaluated[0].SMA,BatteryParamEvaluated[1].SMA);
 		printf("Min Temperature:%f, ChargeRate:%f\n",BatteryParamEvaluated[0].minRxd,BatteryParamEvaluated[1].minRxd);
 		printf("Max Temperature:%f, ChargeRate:%f\n\n",BatteryParamEvaluated[0].maxRxd,BatteryParamEvaluated[1].maxRxd);
-	    	    
-	    count ++;
-	    #endif
-    }
-    #if(TEST_MODE)
-    while(count < TestSize);
-    #else
-    while(!((EoFDetected == 1)||(sig_caught == 1)));
-    #endif
+	    #endif	    
+ 
+	}while(!((EoFDetected == 1)||(sig_caught == 1)));
+   
     
 }
 
@@ -102,7 +88,7 @@ void BMSDataReceiverCalc()
 *Return    : Parameter value - float type
 *****************************************************************************************/
 
-float getParamValuefromConsoleCustom(char *scanLine, enum BATTERYPARAM batteryParam)
+float getParamValuefromString(char *scanLine, enum BATTERYPARAM batteryParam)
 {
   char splitStr[NUMOFPARAM*2][12]={'\0'};
   char * pch;    
@@ -184,3 +170,29 @@ float movingAverageForRangeofValue(float *ptrArrNumbers, float *ptrSum, int para
  
 }
 
+/****************************************************************************************
+*Func desc : The function to get the string which hold the Parameter data
+*Param     : appendStr  - pointer to teh string which needs to be updated with string which has param details (modified by this function)
+			 stringSize - pointer for sum variables which holds the previous sum value (modified by this function)
+*Return    : Returns 0 if updation is successful 
+			 Returns 1 if EoFDetected
+			 Further values can be added based on usecase
+*****************************************************************************************/
+
+int GetParamDataString(char *appendStr, int stringSize)
+{
+	int EoFDetected = 0;
+	#if(TEST_MODE)
+	strcpy(appendStr,strInput[TestCount[TEMPERATURE]]);
+	#else
+	/*Released only for console, if in future, it is from file, it can be adapted here*/
+	if(fgets(appendStr,stringSize,stdin)== NULL)
+	{
+		strcpy(appendStr,"EoF detected");
+		printf("EoF detected, stopping reception\n");
+	    EoFDetected  = 1;
+	}
+	#endif
+	return EoFDetected;
+}
+	
