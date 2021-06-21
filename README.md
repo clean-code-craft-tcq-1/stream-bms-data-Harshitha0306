@@ -88,7 +88,7 @@ This section lists the minimum functionality of the Sender and Receiver.
 
 **Expected Sender Print format** 
 
-ParamName1:ValueUnit     ParamName2:ValueUnit
+ParamName1:ValueUnit          ParamName2:ValueUnit
 
 **Receiver Print format**
 
