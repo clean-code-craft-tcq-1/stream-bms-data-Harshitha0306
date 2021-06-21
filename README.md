@@ -74,7 +74,8 @@ This section lists the minimum functionality of the Sender and Receiver.
 **Common files**
 - BMS_Receiver / bms_Rx.h - Header file with all necessary receiver function definitions, varaible and macro declaration
 - BMS_Receiver / bms_Rx_func.c - Has the main function which co ordinates the complete receiver functionallity
-- BMS_Receiver / bms_Rxadap_func.c - It has the functions which can be adapted based on the real needs (mainly updating of the calculated statistics)
+- BMS_Receiver / bms_Rx_adapfunc.c - It has the functions which can be adapted based on the real needs (mainly updating of the calculated statistics and getting input data)
+- BMS_Receiver / bms_Rx_statfunc.c - It has function definition used for calculating various BMS param metrics
 
 **Test phase**
 - BMS_Receiver / test.cpp - Has all teh testcases written for every functions realised and integration tests performed for the Receiver function as stated above

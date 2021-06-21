@@ -20,7 +20,7 @@ jobs:
       run: ./sender_test
   
     - name: build for test receiver
-      run: g++ -DUNIT_TEST -Wall -Wextra -fprofile-arcs -ftest-coverage -o bms_Rx_test -IBMS_Receiver/test ./BMS_Receiver/bms_Rx_func.c ./BMS_Receiver/bms_Rxadap_func.c ./BMS_Receiver/test.cpp
+      run: g++ -DUNIT_TEST -Wall -Wextra -fprofile-arcs -ftest-coverage -o bms_Rx_test -IBMS_Receiver/test ./BMS_Receiver/bms_Rx_func.c ./BMS_Receiver/bms_Rx_adapfunc.c ./BMS_Receiver/bms_Rx_statfunc.c ./BMS_Receiver/test.cpp
       
     - name: run
       run: ./bms_Rx_test
