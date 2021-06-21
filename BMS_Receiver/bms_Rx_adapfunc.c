@@ -9,10 +9,10 @@ int sig_caught = 0;
 /****************************************************************************************
 *Func desc : The function to get the string which hold the Parameter data
 *Param     : appendStr  - pointer to teh string which needs to be updated with string which has param details (modified by this function)
-			 stringSize - pointer for sum variables which holds the previous sum value (modified by this function)
+	     stringSize - the maximum length to which the data can be copied to passed string pointer
 *Return    : Returns 0 if updation is successful 
-			 Returns 1 if EoFDetected
-			 Further values can be added based on usecase
+	     Returns 1 if EoFDetected
+	     Different integer values can be added based on additional error cases realised
 *****************************************************************************************/
 
 int GetParamDataString(char *appendStr, int stringSize)
@@ -90,9 +90,9 @@ float getParamValuefromString(char *scanLine, enum BATTERYPARAM batteryParam)
 			 "Temperature -> SMA : 14.08 degrees, Minimum : 70.41 degrees , Maximum : 70.41 degrees"
 			 If additional parameters are to be added as output , the BatteryParamEvaluated needs to be adapted followed by printf realisation
 *Param     : BatteryParamEvaluated  - structure which holds the calculated value
-			 .SMA         - Calculated SMA value
-			 .minRxd      - The valid minimum value received over console
-			 .maxRxd	  - The valid maximum value received over console
+			 .SMA       - Calculated SMA value
+			 .minRxd    - The valid minimum value received over console
+			 .maxRxd    - The valid maximum value received over console
 *Return    : Updation status- bool type
 *****************************************************************************************/
 
@@ -132,9 +132,9 @@ bool UpdateTemperatureCalcData (struct BatteryParamOutput_s BatteryParamEvaluate
 			 "ChargeRate -> SMA : 0.84 A , Minimum : 4.20 A, Maximum : 4.20 A"
 			 If additional parameters are to be added as output , the BatteryParamEvaluated needs to be adapted followed by printf realisation
 *Param     : BatteryParamEvaluated  - structure which holds the calculated value
-			 .SMA         - Calculated SMA value
-			 .minRxd      - The valid minimum value received over console
-			 .maxRxd	  - The valid maximum value received over console
+			 .SMA       - Calculated SMA value
+			 .minRxd    - The valid minimum value received over console
+			 .maxRxd    - The valid maximum value received over console
 *Return    : Updation status- bool type
 *****************************************************************************************/
 bool UpdateChargeRateCalcData (struct BatteryParamOutput_s BatteryParamEvaluated)
