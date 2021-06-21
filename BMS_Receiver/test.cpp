@@ -5,8 +5,8 @@
 #include "stddef.h"
 #include "string.h"
 
-/* Validating Get data from Console */
-TEST_CASE("Test from Console - Valid data")
+/* Validating "getParamValuefromString"- data seperation from string */
+TEST_CASE("Data seperation from Valid data string")
 {
 	float tempCalc, ChrgRateCalc;
 	char str[100];
@@ -19,7 +19,7 @@ TEST_CASE("Test from Console - Valid data")
 	
 }
 
-TEST_CASE("Test from Console - Temperature data not found")
+TEST_CASE("Data seperation from data string - Temperature data not found")
 {
 	float tempCalc, ChrgRateCalc;
 	char str[100];
@@ -32,7 +32,7 @@ TEST_CASE("Test from Console - Temperature data not found")
 	
 }
 
-TEST_CASE("Test from Console - ChargeRate data not found")
+TEST_CASE("Data seperation from data string - ChargeRate data not found")
 {
 	float tempCalc, ChrgRateCalc;
 	char str[100];
@@ -45,7 +45,7 @@ TEST_CASE("Test from Console - ChargeRate data not found")
 	
 }
 
-TEST_CASE("Test from Console - Different order")
+TEST_CASE("Data seperation from data string - Valid Parameter in different order")
 {
 	float tempCalc, ChrgRateCalc;
 	char str[100];
@@ -57,9 +57,9 @@ TEST_CASE("Test from Console - Different order")
 	REQUIRE(fabs(ChrgRateCalc - 4.9)<0.01);
 }
 
-/* End of  Validating Get data from Console */
+/* End of Validating "getParamValuefromString"- data seperation from string  */
 
-/* SMA function validation */
+/* Validating "movingAverageForRangeofValue" - SMA calculation */
 TEST_CASE("Valid data range SMA check")
 {
 	float SMABuffer[5]={0}, SMASum;
@@ -77,7 +77,7 @@ TEST_CASE("Valid data range SMA check")
 
 }
 
-TEST_CASE("Valid data SMA check Range 1")
+TEST_CASE("SMA check - Range 1")
 {
 	float SMABuffer[5]={0}, SMASum;
 	float smaCalc ;
@@ -93,7 +93,7 @@ TEST_CASE("Valid data SMA check Range 1")
 	}
 }
 
-TEST_CASE("Valid data SMA check Range 0")
+TEST_CASE("SMA check - Range 0")
 {
 	float SMABuffer[5]={0}, SMASum;
 	float smaCalc ;
@@ -109,9 +109,10 @@ TEST_CASE("Valid data SMA check Range 0")
 	}
 }
 
-/*End of SMA function validation */
+/*End of Validating "movingAverageForRangeofValue" - SMA calculation */
 
-/*IsWithin Range function validation */
+
+/*Validation of "IsWithinRange" function */
 TEST_CASE("Range check")
 {
 	float paramValue;
@@ -130,10 +131,11 @@ TEST_CASE("Range check")
 	assert(IsWithinRange(paramValue , 50.55, 50.54) == 0);
 	
 }
+/*End of Validation of "IsWithinRange" function*/
 
-/*End of IsWithin Range function validation */
 
-/*Minimum finding function validation */
+
+/*Validation of "MinimumOfTwoFloatNumbers" - Minimum finding function*/
 TEST_CASE("Minimum function check ")
 {
 	float value1, value2, min;
@@ -143,16 +145,19 @@ TEST_CASE("Minimum function check ")
 	value2 = 13.7;
 	min = MinimumOfTwoFloatNumbers(value1,value2);
   	assert(fabs(min - 13.7 ) < 0.01);
+	
 	/* Value1 less than value2*/
 	value1 = 100.87;
 	value2 = 100.99;
 	min = MinimumOfTwoFloatNumbers(value1,value2);
   	assert(fabs(min - 100.87 ) < 0.01);
+	
 	/* Both equal*/
 	value1 = 54.37;
 	value2 = 54.37;
 	min = MinimumOfTwoFloatNumbers(value1,value2);
   	assert(fabs(min - 54.37 ) < 0.01);
+	
 	/* Minimum check for negative values*/
 	value1 = -1.23;
 	value2 = -2.35;
@@ -160,9 +165,9 @@ TEST_CASE("Minimum function check ")
   	assert(fabs(min - (-2.35) ) < 0.01);
 	
 }
-/*End of Minimum finding function validation */
+/*End of Validation of "MinimumOfTwoFloatNumbers" - Minimum finding function*/
 
-/*Maximumfinding function validation */
+/* Validation of "MaximumOfTwoFloatNumbers" - Maximum finding function */
 TEST_CASE("Maximum function check ")
 {
 	float value1, value2, max;
@@ -172,16 +177,19 @@ TEST_CASE("Maximum function check ")
 	value2 = 13.7;
 	max = MaximumOfTwoFloatNumbers(value1,value2);
   	assert(fabs(max - 75.2 ) < 0.01);
+	
 	/* Value1 less than value2*/
 	value1 = 100.87;
 	value2 = 100.99;
 	max = MaximumOfTwoFloatNumbers(value1,value2);
   	assert(fabs(max - 100.99 ) < 0.01);
+	
 	/* Both equal*/
 	value1 = 54.37;
 	value2 = 54.37;
 	max = MaximumOfTwoFloatNumbers(value1,value2);
   	assert(fabs(max - 54.37 ) < 0.01);
+	
 	/* Maximum check for negative values*/
 	value1 = -1.23;
 	value2 = -2.35;
@@ -189,9 +197,9 @@ TEST_CASE("Maximum function check ")
   	assert(fabs(max - (-1.23) ) < 0.01);
 	
 }
-/*End of Minimum finding function validation */
+/*End of Validation of "MaximumOfTwoFloatNumbers" - Maximum finding function */
 
-/*Validating Update data  test function*/
+/*Validating "UpdateParamSMAData" function*/
 TEST_CASE("Update function check -UpdateChargeRateCalcData")
 {
 		
@@ -234,11 +242,11 @@ TEST_CASE("Update function check -UpdateTemperatureCalcData")
 		assert(fabs(BatteryParamInput[i].minRxd - TestMinOuputValue[i][TEMPERATURE]) < 0.02);
 	}	
 }
-/*End of Validating Update data  test function*/
+/*End of Validating "UpdateParamSMAData" function*/
 
 
-/*Validating Integrated test of all functions */
-TEST_CASE("Integrated test ")
+/*Validating Integration test of all functions */
+TEST_CASE("Integrated test for all functions validating the requirement")
 {
 	strcpy(strInput[0],"Temperature:25.6degress     ChargeRate:1.2A");
     strcpy(strInput[1],"Temperature:79.65degress     ChargeRate:3.2A");
@@ -315,9 +323,11 @@ TEST_CASE("Integrated test ")
         
     }
 }
-/*End of Validating Integrated test */	
+/* End of Integration test of all functions */	
 
-/*Min and Max detection check - Also integration check done */
+
+/*Min and Max calculation check along integration check done */
+
 TEST_CASE("Min max check test ")
 {
 	strcpy(strInput[0],"Temperature:50.65degress     ChargeRate:1.2A");
@@ -380,5 +390,28 @@ TEST_CASE("Min max check test ")
         
     }
 }
-/*End of Min and Max detection check - Also integration check done */
+/*End of Min and Max calculation check along integration check done */
 
+
+/*Checking "GetParamDataString" string updation for testing*/
+TEST_CASE("String value fetched in passed sting for testing purpose")
+{
+	char appendStr[MAXLENGTH_INPUTSTRING];
+	
+	/*Reset Test count*/
+	TestCount[TEMPERATURE] = 0;
+	TestCount[CHARGERATE] = 0;
+	
+    /*	Check string 1 */
+	strcpy(strInput[0],"Temperature:100.25degress     ChargeRate:3.7A");
+	GetParamDataString(appendStr,MAXLENGTH_INPUTSTRING);
+	assert(strcmp(appendStr,strInput[0])==0);
+	TestCount[TEMPERATURE]++;
+	
+	/*	Check string 2 */
+    strcpy(strInput[1],"Temperature:37.54degress     ChargeRate:5.4A");
+	GetParamDataString(appendStr,MAXLENGTH_INPUTSTRING);
+	assert(strcmp(appendStr,strInput[1])==0);
+	TestCount[TEMPERATURE]++;
+}
+/*End of Checking "GetParamDataString" string updation for testing*/
