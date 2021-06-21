@@ -84,6 +84,8 @@ This section lists the minimum functionality of the Sender and Receiver.
 - bms_Rx_main.c - Has only Main proc which calls the BMS calc functions
 - BMS_Receiver / profd/ test_info.h  - the test mode can be disabled by setting TEST_MODE macro as 0
 
+(no limitation on number of data, runs until sender stops)
+
 **Expected Sender Print format** 
 ParamName1:ValueUnit     ParamName2:ValueUnit
 
