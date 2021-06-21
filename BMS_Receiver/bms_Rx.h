@@ -63,7 +63,7 @@ extern float TestSMAOuputValue[TestSize][NUMOFPARAM];
 extern float TestMaxOuputValue[TestSize][NUMOFPARAM];
 extern float TestMinOuputValue[TestSize][NUMOFPARAM];
 extern int TestCount[NUMOFPARAM];
-extern char strInput[TestSize][100];
+extern char strInput[TestSize][MAXLENGTH_INPUTSTRING];
 #endif
 
 /************************************************************/
