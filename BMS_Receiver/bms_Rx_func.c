@@ -42,20 +42,11 @@ void BMSDataReceiverCalc()
   
     do
     {
-        #if(TEST_MODE)
-	    strcpy(str,strInput[TestCount[TEMPERATURE]]);
-	    #else
-	    if(fgets(str,MAXLENGTH_INPUTSTRING, stdin)==NULL)
-	    {
-			strcpy(str,"EoF detected");
-			printf("EoF detected, stopping reception\n");
-	        EoFDetected  = 1;
-	    }
-	    #endif
-	   
+		EoFDetected = GetParamDataString(str,MAXLENGTH_INPUTSTRING);
+        	   
         for (int i=0 ; i < NUMOFPARAM; i++)
 	    {
-	        BMSParamValueRxd[i] = getParamValuefromConsoleCustom(str,(enum BATTERYPARAM)i);
+	        BMSParamValueRxd[i] = getParamValuefromString(str,(enum BATTERYPARAM)i);
 	        
 	        if(IsWithinRange(BMSParamValueRxd[i], BatteryParam[i].minValue , BatteryParam[i].maxValue))
 	        {
@@ -65,6 +56,8 @@ void BMSDataReceiverCalc()
 	            BatteryParamEvaluated[i].minRxd = MinimumOfTwoFloatNumbers(BMSParamValueRxd[i],BatteryParamEvaluated[i].minRxd);
 	            
 	            BatteryParamEvaluated[i].maxRxd = MaximumOfTwoFloatNumbers(BMSParamValueRxd[i],BatteryParamEvaluated[i].maxRxd);
+				
+				/*In case if additional statistics data are to be computed, the same to be appended before UpdateParamSMAData*/
 	            
 		        UpdateParamSMAData[i](BatteryParamEvaluated[i]);
 		        
@@ -95,7 +88,7 @@ void BMSDataReceiverCalc()
 *Return    : Parameter value - float type
 *****************************************************************************************/
 
-float getParamValuefromConsoleCustom(char *scanLine, enum BATTERYPARAM batteryParam)
+float getParamValuefromString(char *scanLine, enum BATTERYPARAM batteryParam)
 {
   char splitStr[NUMOFPARAM*2][12]={'\0'};
   char * pch;    
@@ -177,3 +170,29 @@ float movingAverageForRangeofValue(float *ptrArrNumbers, float *ptrSum, int para
  
 }
 
+/****************************************************************************************
+*Func desc : The function to get the string which hold the Parameter data
+*Param     : appendStr  - pointer to teh string which needs to be updated with string which has param details (modified by this function)
+			 stringSize - pointer for sum variables which holds the previous sum value (modified by this function)
+*Return    : Returns 0 if updation is successful 
+			 Returns 1 if EoFDetected
+			 Further values can be added based on usecase
+*****************************************************************************************/
+
+int GetParamDataString(char *appendStr, int stringSize)
+{
+	int EoFDetected = 0;
+	#if(TEST_MODE)
+	strcpy(appendStr,strInput[TestCount[TEMPERATURE]]);
+	#else
+	/*Released only for console, if in future, it is from file, it can be adapted here*/
+	if(fgets(appendStr,stringSize,stdin)== NULL)
+	{
+		strcpy(appendStr,"EoF detected");
+		printf("EoF detected, stopping reception\n");
+	    EoFDetected  = 1;
+	}
+	#endif
+	return EoFDetected;
+}
+	
