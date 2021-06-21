@@ -1,0 +1,45 @@
+name: Build and Run
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: install coverage tool
+      run: sudo apt-get install -y gcovr
+
+    - name: build for test sender
+      run: g++ -DUNIT_TEST -Wall -Wextra -fprofile-arcs -ftest-coverage -o sender_test ./test.cpp ./BMS_DataSender.c 
+      
+    - name: run
+      run: ./sender_test
+  
+    - name: build for test receiver
+      run: g++ -DUNIT_TEST -Wall -Wextra -fprofile-arcs -ftest-coverage -o bms_Rx_test -IBMS_Receiver/test ./BMS_Receiver/bms_Rx_func.c ./BMS_Receiver/bms_Rx_adapfunc.c ./BMS_Receiver/bms_Rx_statfunc.c ./BMS_Receiver/test.cpp
+      
+    - name: run
+      run: ./bms_Rx_test
+
+    - name: collect coverage
+      run: gcovr --gcov-exclude=".*test.*" -r . --html --html-details -o coverage.html
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage
+        path: ./*.html
+        retention-days: 1
+        
+    - name: build for production sender
+      run: g++ -Wall -Wextra -o sender ./main_sender.c ./BMS_DataSender.c 
+    
+    - name: build for production receiver
+      run: g++ -Wall -Wextra -o receiver -IBMS_Receiver/prod ./BMS_Receiver/*.c 
+      
+    - name: production code run
+      run: ./sender | ./receiver
