@@ -63,16 +63,18 @@ extern float TestSMAOuputValue[TestSize][NUMOFPARAM];
 extern float TestMaxOuputValue[TestSize][NUMOFPARAM];
 extern float TestMinOuputValue[TestSize][NUMOFPARAM];
 extern int TestCount[NUMOFPARAM];
-extern char strInput[TestSize][100];
+extern char strInput[TestSize][MAXLENGTH_INPUTSTRING];
 #endif
 
 /************************************************************/
 
 /**************Function prototype section*********************/
 
-float getParamValuefromConsoleCustom(char *scanLine, enum BATTERYPARAM batteryParam);
+float getParamValuefromString(char *scanLine, enum BATTERYPARAM batteryParam);
 
 void BMSDataReceiverCalc();
+
+int GetParamDataString(char *appendStr, int stringSize);
 
 typedef bool (*UpdateParamSMAData_funcPtr)(struct BatteryParamOutput_s BatteryParamEvaluated);
 
