@@ -34,8 +34,12 @@ int GetParamDataString(char *appendStr, int stringSize)
 
 /****************************************************************************************
 *Func desc : This function is to get the parameter value from the string passed
-*Param     : scanLine     - String from which the parameter value is to be extracted
-			 batteryParam - The parameter whise value is to be extracted from the passed string
+	     Expected Format in scanLine string is as follows -> ParamName1:Value1Unit1	 ParamName2:Value2Unit2 	etc
+	     Example:"Temperature:26.476degrees		ChargeRate:10.326A"
+             Unit is optional, but the value should be followed by ':' after ParamName and unit and value should not have any spaces or token between them
+   
+*Param     : scanLine     - String from which the parameter value is to be extracted (Maximum string length size as "MAXLENGTH_INPUTSTRING")
+	     batteryParam - The parameter whise value is to be extracted from the passed string
 *Return    : Parameter value - float type
 *****************************************************************************************/
 
@@ -82,7 +86,9 @@ float getParamValuefromString(char *scanLine, enum BATTERYPARAM batteryParam)
 
 /****************************************************************************************
 *Func desc : The function which updates the calculated value based on passed structure, it can be adapted based on needs, 
-			 Currently it does printing of param values
+			 Currently it does printing of Temperature data in the following format 
+			 "Temperature -> SMA : 14.08 degrees, Minimum : 70.41 degrees , Maximum : 70.41 degrees"
+			 If additional parameters are to be added as output , the BatteryParamEvaluated needs to be adapted followed by printf realisation
 *Param     : BatteryParamEvaluated  - structure which holds the calculated value
 			 .SMA         - Calculated SMA value
 			 .minRxd      - The valid minimum value received over console
@@ -122,7 +128,9 @@ bool UpdateTemperatureCalcData (struct BatteryParamOutput_s BatteryParamEvaluate
 
 /****************************************************************************************
 *Func desc : The function which updates the calculated value based on passed structure, it can be adapted based on needs, 
-			 Currently it does printing of param values
+			 Currently it does printing of charge rate data in the following format 
+			 "ChargeRate -> SMA : 0.84 A , Minimum : 4.20 A, Maximum : 4.20 A"
+			 If additional parameters are to be added as output , the BatteryParamEvaluated needs to be adapted followed by printf realisation
 *Param     : BatteryParamEvaluated  - structure which holds the calculated value
 			 .SMA         - Calculated SMA value
 			 .minRxd      - The valid minimum value received over console
