@@ -5,6 +5,81 @@ int TestCount[NUMOFPARAM] = {0};
 #endif
 
 int sig_caught = 0;
+
+/****************************************************************************************
+*Func desc : The function to get the string which hold the Parameter data
+*Param     : appendStr  - pointer to teh string which needs to be updated with string which has param details (modified by this function)
+			 stringSize - pointer for sum variables which holds the previous sum value (modified by this function)
+*Return    : Returns 0 if updation is successful 
+			 Returns 1 if EoFDetected
+			 Further values can be added based on usecase
+*****************************************************************************************/
+
+int GetParamDataString(char *appendStr, int stringSize)
+{
+	int EoFDetected = 0;
+	#if(TEST_MODE)
+	strcpy(appendStr,strInput[TestCount[TEMPERATURE]]);
+	#else
+	/*Released only for console, if in future, it is from file, it can be adapted here*/
+	if(fgets(appendStr,stringSize,stdin)== NULL)
+	{
+		strcpy(appendStr,"EoF detected");
+		printf("EoF detected, stopping reception\n");
+	    EoFDetected  = 1;
+	}
+	#endif
+	return EoFDetected;
+}
+
+/****************************************************************************************
+*Func desc : This function is to get the parameter value from the string passed
+*Param     : scanLine     - String from which the parameter value is to be extracted
+			 batteryParam - The parameter whise value is to be extracted from the passed string
+*Return    : Parameter value - float type
+*****************************************************************************************/
+
+float getParamValuefromString(char *scanLine, enum BATTERYPARAM batteryParam)
+{
+  char splitStr[NUMOFPARAM*2][12]={'\0'};
+  char * pch;    
+  int k=0;
+  float temp;
+  char buffer[MAXLENGTH_INPUTSTRING];
+  
+  strcpy(buffer,scanLine);
+  pch = strtok (buffer," :\t");
+  
+  while (pch != NULL)
+  {
+    
+    strcpy((splitStr[k]),pch);
+	//printf("\n%s",splitStr[k]);
+    k++;
+    pch = strtok (NULL, " :\t");
+  } 
+  
+  for(int j=0;j < (NUMOFPARAM*2);j=j+2)
+  {
+        
+      if(strcmp((splitStr[j]),BatteryParam[batteryParam].ParamName) == 0)
+      {
+         temp = atof(splitStr[j+1]);
+	
+         break;
+      }
+      else
+      {
+          temp = VALUE_NOTFOUND;
+      }
+  }
+
+  pch = NULL;
+
+  return temp; 
+}   
+
+
 /****************************************************************************************
 *Func desc : The function which updates the calculated value based on passed structure, it can be adapted based on needs, 
 			 Currently it does printing of param values
@@ -85,60 +160,4 @@ bool UpdateChargeRateCalcData (struct BatteryParamOutput_s BatteryParamEvaluated
     return 1;
 }
 
-/****************************************************************************************
-*Func desc : The function check if the passed value is within the range passed 
-*Param     : value   - The value for which range is to be checked
-			 min     - The range minimum value 
-			 max     - The range minimum value 
-*Return    : valid status - bool type 
-			 If 1 : Within Range,else out of range or Invalid range
-*****************************************************************************************/
 
-bool IsWithinRange(float value, float min, float max)
-{
-    if(min<max)
-    {
-        return ((value>=min)&&(value<=max));
-    }
-    else
-    {
-	    printf("Minimum value passes is greater than Maximum");
-        return 0;
-    }
-}
-
-/****************************************************************************************
-*Func desc : The function returns minimum of two values passed 
-*Param     : value1   - Value1 
-			 value2   - Value2
-*Return    : minimum of 2 values passed - float type 
-*****************************************************************************************/
-float MinimumOfTwoFloatNumbers(float value1, float value2)
-{
-	if (value1 < value2)
-	{
-		return value1;
-	}
-	else 
-	{
-		return value2;
-	}
-}
-
-/****************************************************************************************
-*Func desc : The function returns maximum of two values passed 
-*Param     : value1   - Value1 
-			 value2   - Value2
-*Return    : maximum of 2 values passed - float type 
-*****************************************************************************************/
-float MaximumOfTwoFloatNumbers(float value1, float value2)
-{
-	if (value1 > value2)
-	{
-		return value1;
-	}
-	else 
-	{
-		return value2;
-	}
-}
