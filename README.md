@@ -69,6 +69,30 @@ This section lists the minimum functionality of the Sender and Receiver.
     - maximum and minimum values in the incoming stream
     - [simple moving average](https://www.investopedia.com/terms/s/sma.asp) of the last 5 values
 
+####  Files for receiver
+
+**Common files**
+- BMS_Receiver / bms_Rx.h - Header file with all necessary receiver function definitions, varaible and macro declaration
+- BMS_Receiver / bms_Rx_func.c - Has the main function which co ordinates the complete receiver functionallity
+- BMS_Receiver / bms_Rxadap_func.c - It has the functions which can be adapted based on the real needs (mainly updating of the calculated statistics)
+
+**Test phase**
+- BMS_Receiver / test.cpp - Has all teh testcases written for every functions realised and integration tests performed for the Receiver function as stated above
+- BMS_Receiver / test / test_info.h  - the test mode can be enabled by setting TEST_MODE macro as 1
+
+**Production phase**
+- bms_Rx_main.c - Has only Main proc which calls the BMS calc functions
+- BMS_Receiver / profd/ test_info.h  - the test mode can be disabled by setting TEST_MODE macro as 0
+
+**Expected Sender Print format** 
+ParamName1:ValueUnit     ParamName2:ValueUnit
+
+**Receiver Print format**
+(Currently realised for Temperature and ChargeRate only)
+Temperature -> SMA : 14.08 degrees, Minimum : 70.41 degrees , Maximum : 70.41 degrees 
+ChargeRate -> SMA : 0.84 A , Minimum : 4.20 A, Maximum : 4.20 A
+
+
 ## Quality Parameters
 
 Setup the quality parameters of your project (duplication, complexity, coverage, warnings) using the GitHub workflow yml files.
