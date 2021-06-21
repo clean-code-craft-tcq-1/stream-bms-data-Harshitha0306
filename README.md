@@ -82,16 +82,20 @@ This section lists the minimum functionality of the Sender and Receiver.
 
 **Production phase**
 - bms_Rx_main.c - Has only Main proc which calls the BMS calc functions
-- BMS_Receiver / profd/ test_info.h  - the test mode can be disabled by setting TEST_MODE macro as 0
+- BMS_Receiver / prod/ test_info.h  - the test mode can be disabled by setting TEST_MODE macro as 0
 
 (no limitation on number of data, runs until sender stops)
 
 **Expected Sender Print format** 
+
 ParamName1:ValueUnit     ParamName2:ValueUnit
 
 **Receiver Print format**
+
 (Currently realised for Temperature and ChargeRate only)
+
 Temperature -> SMA : 14.08 degrees, Minimum : 70.41 degrees , Maximum : 70.41 degrees 
+
 ChargeRate -> SMA : 0.84 A , Minimum : 4.20 A, Maximum : 4.20 A
 
 
