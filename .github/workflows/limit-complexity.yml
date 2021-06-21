@@ -13,4 +13,4 @@ jobs:
       run: pip install lizard
 
     - name: Limit complexity
-      run: $HOME/.local/bin/lizard --exclude "./test/*" "./BMS_Receiver/*.hpp" --CCN 8
+      run: $HOME/.local/bin/lizard --exclude "./test/*" --CCN 8
